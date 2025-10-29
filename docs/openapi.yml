@@ -14,3 +14,35 @@ tags:
 paths:
   /tasks:
     $ref: paths/tasks.yml
+  /tasks/{id}:
+    get:
+      summary: Get a single task by ID
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Task found
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/Task.yml
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/ValidationError.yml
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/NotFoundError.yml
